@@ -6,8 +6,14 @@
 
 SRC = 	\
 	src/main.c \
-	src/utils/events_manager.c \
-	src/utils/window_manager .c
+	src/window/window_manager.c \
+	src/window/events/events_manager.c \
+	src/window/events/events_add.c \
+	src/sprite/new_sprite.c \
+	src/text/new_text.c \
+	src/window/init/init_arrow.c \
+	src/utils/is_mouse_click.c \
+	src/events/arrow_click.c \
 
 OBJ = $(SRC:.c=.o)
 
