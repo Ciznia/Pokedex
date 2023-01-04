@@ -15,7 +15,8 @@
     #include <time.h>
     #include <unistd.h>
     #include <stdio.h>
-    #define SEP(a) (a == ' ' || a == '\n')
+    #define SEP(a) (a == ';' || a == '\0')
+    #define CHR(a) (a != ';' && a != '\0')
 
     typedef struct stat_s {
         int attack;
@@ -24,9 +25,8 @@
         int sp_attack;
         int sp_defense;
         int speed;
-        int weight;
-        int kg;
-        int height;
+        float weight;
+        float height;
         int generation;
         int en_legend;
     } stat_t;
@@ -36,7 +36,6 @@
         struct pokemon_s *prev;
         int number;
         char *name;
-        char *jap_name;
         char *type_1;
         char *type_2;
         char *classfication;
@@ -48,7 +47,14 @@
         pokemon_t **pokemon;
         sfTexture *texture;
     } pars_t;
+    
+    typedef struct theme_s {
+        sfTexture *texture;
+        sfSprite *sprite;
+        char *type;
+    } theme_t;
 
     char **str_to_words(char *str);
+    pars_t parsing(void);
 
 #endif /* !PARSING */

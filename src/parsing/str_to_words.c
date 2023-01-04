@@ -7,6 +7,8 @@
 
 #include "parsing.h"
 
+#define SPACE(a) (a == ' ')
+
 void free_stw(char **stw)
 {
     for (int i = 0; stw[i] != NULL; i++)
@@ -18,8 +20,10 @@ int count_word(char *str)
 {
     int nb = 0;
     for (int i = 0; str[i] != 0; i++) {
-        if (!SEP(str[i]) && (SEP(str[i + 1]) || str[i + 1] == 0))
+        if (CHR(str[i]) && (SEP(str[i + 1]) || str[i + 1] == 0))
             nb++;
+        if (!CHR(str[i]) && !SEP(str[i]))
+            return -1;
     }
     return nb;
 }
