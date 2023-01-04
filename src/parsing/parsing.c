@@ -24,17 +24,53 @@ void add_pars(pokemon_t **pokemon, sfTexture *texture, char **stw, int nb)
 {
     pokemon_t *node = malloc(sizeof(pokemon_t));
     node->prev = NULL;
-    if (*pokemon == NULL)
+    if (*pokemon == NULL) {
         node->next = NULL;
-    else
-        node->next = (*pokemon)->next;
+        node->prev = NULL;
+    }
+    else {
+        (*pokemon)->prev->next = node;
+        node->prev = (*pokemon)->prev;
+        (*pokemon)->prev = node;
+        node->next = *pokemon;
+    }
     printf("%s\n",stw[0]);
     node->number = atoi(stw[0]);
     node->name = stw[1];
     node->type_1 = stw[2];
     node->type_2 = stw[3];
     node->classfication = stw[4];
+    node->rect = (sfIntRect){80 * nb,0,80, 80};
     statattack(node, stw);
+}
+
+void add_theme(char *name, char *str, theme_t theme[18], int nb)
+{
+    theme[nb].texture = sfTexture_createFromFile(str, NULL);
+    theme[nb].sprite = sfSprite_create();
+    sfSprite_setTexture(theme[nb].sprite, theme[nb].texture, sfFalse);
+}
+
+void init_theme(theme_t theme[18])
+{
+    add_theme("bug", "assets/bug.png", theme, 0);
+    add_theme("normal", "assets/colorless.png", theme, 1);
+    add_theme("dark", "assets/dark.png", theme, 2);
+    add_theme("Dragon", "assets/dragon.png", theme, 3);
+    add_theme("electric", "assets/electric.png", theme, 4);
+    add_theme("fairy", "assets/fairy.png", theme, 5);
+    add_theme("fighting", "assets/fighting.png", theme, 6);
+    add_theme("fire", "assets/fire.png", theme, 7);
+    add_theme("flying", "assets/flying.png", theme, 8);
+    add_theme("ghost", "assets/ghost.png", theme, 9);
+    add_theme("grass", "assets/grass.png", theme, 10);
+    add_theme("ground", "assets/ground.png", theme, 11);
+    add_theme("ice", "assets/ice.png", theme, 12);
+    add_theme("psychic", "assets/physic.png", theme, 13);
+    add_theme("poison", "assets/poison.png", theme, 14);
+    add_theme("rock", "assets/rock.png", theme, 15);
+    add_theme("steel", "assets/steel.png", theme, 16);
+    add_theme("water", "assets/water.png", theme, 17);
 }
 
 pars_t parsing(void)
@@ -45,7 +81,9 @@ pars_t parsing(void)
     char *buff = NULL;
     size_t size = 1;
     int nb = 0;
+    theme_t theme[18] = {0};
 
+    init_theme(theme);
     pars.texture = sfTexture_createFromFile("assets/18618.png", NULL);
     pars.pokemon = &pokemon;
     while (getline(&buff, &size, fp) != -1)

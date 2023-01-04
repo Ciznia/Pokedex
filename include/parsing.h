@@ -39,7 +39,7 @@
         char *type_1;
         char *type_2;
         char *classfication;
-        sfSprite *sprite;
+        sfIntRect rect;
         stat_t stat;
     } pokemon_t;
 
