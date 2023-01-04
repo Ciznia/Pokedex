@@ -1,54 +1,50 @@
+##
 ## EPITECH PROJECT, 2022
-## make
+## MAKEFILE
 ## File description:
-## desc
+## MAKEFILE FILE
 ##
 
-SRC = 	\
-	src/main.c \
-	src/utils/events_manager.c \
-	src/utils/window_manager .c
+SRC		=	./src/search_bar.c	\
+			./src/main.c		\
+			./src/my_strcmp.c
 
-OBJ = $(SRC:.c=.o)
+TEST 	=	./test/
 
-INCLUDE_FLAGS = \
-	-I include\
-	-I library/tools_box/include\
+NAME	=	search-bar
 
-C_WARNING_FLAGS = -Wextra -Wall
-C_FLAGS = $(C_WARNING_FLAGS) $(INCLUDE_FLAGS)
+BIN		= 	unit_tests
 
-# Library
-LIB_FLAGS = \
-	-lm \
-	-lcsfml-graphics -lcsfml-window -lcsfml-system\
-	-L library/tools_box -l:tools_box.a
+OBJ		=	$(SRC:.c=.o)
 
-NAME = my_pokedex
+CFLAGS	= 	-Wall -Wextra -I ./include
+GFLAGS	=	-lcsfml-system -lcsfml-graphics -lcsfml-audio -lcsfml-window
 
-GCC = gcc
+UNITFL	=	-lcriterion --coverage
 
-all: $(NAME)
+DEBUGFL	=	-g 	-ggdb3
 
-.c.o:
-	@echo "$(notdir $(CURDIR)): C '$<'"
-	@$(GCC) $(C_FLAGS) -c -o $*.o $<
-
-$(NAME): tools_box $(OBJ)
-	@$(GCC) -o $@ $(OBJ) $(INCLUDE_FLAGS) $(LIB_FLAGS)
-.PHONY: $(NAME)
+all:		$(OBJ)
+			gcc -o $(NAME) $(OBJ) $(CFLAGS) $(GFLAGS)
 
 clean:
-	@rm -f $(OBJ)
-.PHONY: clean
+			rm -f $(OBJ)
+			rm -f *.gcno
+			rm -f *.gcda
 
-fclean: clean
-	@rm -f $(NAME)
-.PHONY: fclean
+fclean:		clean
+			rm -f $(NAME)
+			rm -f $(BIN)
 
-re: fclean all
-.PHONY: re
+re:			fclean all
 
-### Library ###
-tools_box:
-	make -C library/tools_box
+unit_tests:	re
+			gcc -o $(BIN) $(TEST) $(OBJ) $(CFLAGS)
+
+run_test:	unit_tests
+			./$(BIN)
+
+debug:		$(OBJ)
+			gcc -o $(NAME) $(OBJ) $(CFLAGS) $(DEBUGFL)
+
+.PHONY	=	all clean fclean re unit_tests run_test debug
