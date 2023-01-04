@@ -5,6 +5,9 @@
 ##
 
 SRC = 	\
+	src/main.c \
+	src/utils/events_manager.c \
+	src/utils/window_manager .c
 
 OBJ = $(SRC:.c=.o)
 

@@ -230,7 +230,7 @@ void delet(t_list *new_tlist) // <-- remove only t_list_node with the value = "T
     char *temp;
     list_foreach(new_tlist, node) { // <-- list_foreach
         temp = node->value;
-        if (tstr_cmp(temp, "That my new string C!") == 0) // <-- function of the lib tools_box (compare 2 string)
+        if (tstr_cmp(temp, "That my new string C!") == 0) // <-- function of the library tools_box (compare 2 string)
             tlist_remove(new_tlist, node);
     }
 }
