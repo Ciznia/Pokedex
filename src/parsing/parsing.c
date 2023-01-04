@@ -7,9 +7,9 @@
 
 #include "parsing.h"
 
-void statattack(pokemon_t *pokemon, char **stw)
+void statattack(pokemon_t *node, char **stw)
 {
-
+    
 }
 
 void add_pars(pokemon_t **pokemon, sfTexture *texture, char **stw, int nb)
@@ -20,7 +20,7 @@ void add_pars(pokemon_t **pokemon, sfTexture *texture, char **stw, int nb)
         node->next = NULL;
     else
         node->next = (*pokemon)->next;
-    
+    statattack(node, stw);
 }
 
 pars_t parsing(void)
